@@ -2,10 +2,11 @@ import {getRandColor} from '../utils.js';
 
 document.body.style['background-color'] = getRandColor(180, 180, 180);
 
-const canvas = document.querySelector('canvas');
+// const canvas = document.querySelector('canvas');
+const size = (document.body.offsetWidth > document.body.offsetHeight ? document.body.offsetHeight : document.body.offsetWidth) - 30;
+const canvas = createCanvas(size, size);
 const ctx = canvas.getContext('2d');
 
-const size = (document.body.offsetWidth > document.body.offsetHeight ? document.body.offsetHeight : document.body.offsetWidth) - 30;
 const dpr = window.devicePixelRatio;
 const step = 5;
 const dots = [];
@@ -54,7 +55,7 @@ function draw() {
 
 function drawNoise() {
   // ctx.clearRect(0, 0, size, size);
-ctx.strokeStyle = "rgba(255, 255, 255, .07)";
+  ctx.strokeStyle = "rgba(255, 255, 255, .07)";
   for (let i = 0; i < dots.length; i++) {
     const dot = dots[i];
     const rand = Math.random() > 0.9;
@@ -96,3 +97,16 @@ for (let i = 0; i < 500; i++) {
 //   update();
 //   draw();
 // }, 1000 / 60);
+
+function createCanvas(width, height, set2dTransform = true) {
+  const ratio = Math.ceil(window.devicePixelRatio);
+  const canvas = document.querySelector('canvas');
+  canvas.width = width * ratio;
+  canvas.height = height * ratio;
+  canvas.style.width = `${width}px`;
+  canvas.style.height = `${height}px`;
+  if (set2dTransform) {
+    canvas.getContext('2d').setTransform(ratio, 0, 0, ratio, 0, 0);
+  }
+  return canvas;
+}
