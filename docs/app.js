@@ -1,4 +1,4 @@
-import {getRandColor} from '../utils.js';
+import {getRandColor} from './utils.js';
 
 document.body.style['background-color'] = getRandColor(180, 180, 180);
 
